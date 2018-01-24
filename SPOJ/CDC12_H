@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+const int MAX=262150;
+int from ,to,Enter,Exit;
+typedef pair<long long, bool> NODE;
+#define  val	first
+#define isMixed	second		// For Lazy propagation
+
+NODE tree[MAX];
+void updateLazy(int s, int e , int p )
+{
+
+    if(Enter > e || Exit < s)	return;		// no intersection
+
+    if(Enter <= s && e <= Exit && !tree[p].isMixed)	// tree interval inside query interval. all its children has same value
+    {
+        tree[p].val++;
+        return;
+    }
+
+    int mid = (s + e) / 2;
+    if(!tree[p].isMixed)
+        tree[2*p] = tree[2*p+1] = tree[p];	// propagate
+
+    updateLazy(s, mid, 2 * p);
+    updateLazy(mid + 1, e, 2 * p + 1);
+
+    //Update the function
+    tree[p].isMixed = tree[2*p].isMixed || tree[2*p+1].isMixed || tree[2*p].val != tree[2*p+1].val;
+    tree[p].val = tree[2*p].val+tree[2*p+1].val;
+}
+
+long long query(int s = 0, int e = MAX, int p = 1)
+{
+    if (from <= s && to >= e)
+        return tree[p].val;
+    if(!tree[p].isMixed){
+        tree[2*p] = tree[2*p+1] = tree[p];
+        tree[p].isMixed=1;
+    }
+    int mid = (s + e) / 2;
+    if (to <= mid)
+        return query(s, (s + e) / 2, 2 * p);
+    if (from > mid)
+        return query((s + e) / 2 + 1, e, 2 * p + 1);
+    long long a = query(s, (s + e) / 2, 2 * p);
+    long long b = query((s + e) / 2 + 1, e, 2 * p + 1);
+    return a+b;
+}
+
+int main()
+{
+    int t,n,q,x,y,k=1;
+    string s;
+    cin>>t;
+    while(t--)
+    {
+
+        cout<<"Scenario #"<<k++<<":"<<endl;
+        cin>>n>>q;
+        for(int i=0;i<MAX;i++)
+            tree[i]=make_pair(0,0);
+        for(int i=0; i<q; i++)
+        {
+            cin>>s;
+            if(s=="answer")
+            {
+                cin>>from>>to;
+                cout<<query(0,n,1)<<endl;
+            }
+            else
+            {
+                cin>>Enter>>Exit;
+                updateLazy(0,n,1);
+                cout<<"OK"<<endl;
+            }
+        }
+    }
+    return 0;
+}
