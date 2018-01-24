@@ -5,15 +5,15 @@ const int MAX=262150;
 int from ,to,Enter,Exit;
 typedef pair<long long, bool> NODE;
 #define  val	first
-#define isMixed	second		// For Lazy propagation
+#define isMixed	second		
 
 NODE tree[MAX];
 void updateLazy(int s, int e , int p )
 {
 
-    if(Enter > e || Exit < s)	return;		// no intersection
+    if(Enter > e || Exit < s)	return;		
 
-    if(Enter <= s && e <= Exit && !tree[p].isMixed)	// tree interval inside query interval. all its children has same value
+    if(Enter <= s && e <= Exit && !tree[p].isMixed)	
     {
         tree[p].val++;
         return;
@@ -21,12 +21,11 @@ void updateLazy(int s, int e , int p )
 
     int mid = (s + e) / 2;
     if(!tree[p].isMixed)
-        tree[2*p] = tree[2*p+1] = tree[p];	// propagate
+        tree[2*p] = tree[2*p+1] = tree[p];
 
     updateLazy(s, mid, 2 * p);
     updateLazy(mid + 1, e, 2 * p + 1);
-
-    //Update the function
+    
     tree[p].isMixed = tree[2*p].isMixed || tree[2*p+1].isMixed || tree[2*p].val != tree[2*p+1].val;
     tree[p].val = tree[2*p].val+tree[2*p+1].val;
 }
@@ -44,9 +43,7 @@ long long query(int s = 0, int e = MAX, int p = 1)
         return query(s, (s + e) / 2, 2 * p);
     if (from > mid)
         return query((s + e) / 2 + 1, e, 2 * p + 1);
-    long long a = query(s, (s + e) / 2, 2 * p);
-    long long b = query((s + e) / 2 + 1, e, 2 * p + 1);
-    return a+b;
+    return query(s, (s + e) / 2, 2 * p)+query((s + e) / 2 + 1, e, 2 * p + 1);
 }
 
 int main()
