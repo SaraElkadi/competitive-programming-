@@ -2,7 +2,7 @@
 
 using namespace std;
 const int MAX=200005;
-int tree[262150];
+int tree[524290];
 int a[MAX],from,to,pos;
 int build(int s,int e,int p)
 {
@@ -37,7 +37,6 @@ int query(int s = 0, int e = MAX, int p = 1)
     return a+b;
 }
 
-
 int main()
 {
     int n,k=1,x;
@@ -52,7 +51,7 @@ int main()
             cin>>a[i];
         build(0,n,1);
         cin>>s;
-        cout<<"Case "<<k++<<": "<<endl;
+        cout<<"Case "<<k++<<":"<<endl;
         while(s!="END")
         {
             if(s=="S")
