@@ -2,75 +2,83 @@
 
 using namespace std;
 const int MAX=262150;
-int from ,to,Enter,Exit;
-typedef pair<long long, bool> NODE;
-#define  val	first
-#define isMixed	second		
-
-NODE tree[MAX];
-void updateLazy(int s, int e , int p )
+int from,to;
+long long tree[MAX],lazy[MAX];
+void updateRange(int val,int s, int e, int p)
 {
-
-    if(Enter > e || Exit < s)	return;		
-
-    if(Enter <= s && e <= Exit && !tree[p].isMixed)	
+    if(lazy[p] != 0)
     {
-        tree[p].val++;
+        tree[p] += (e-s+1)*lazy[p];
+        if(s!=e)
+        {
+            lazy[p*2]+= lazy[p];
+            lazy[p*2+1]+= lazy[p];
+        }
+        lazy[p] = 0;
+    }
+    if(s>e||s>to||e<from)
+        return;
+    if(s>=from && e<= to)
+    {
+        tree[p] += (e-s+1)*val;
+        if(s!=e)
+        {
+            lazy[p*2] += val;
+            lazy[p*2+1] += val;
+        }
         return;
     }
-
     int mid = (s + e) / 2;
-    if(!tree[p].isMixed)
-        tree[2*p] = tree[2*p+1] = tree[p];
-
-    updateLazy(s, mid, 2 * p);
-    updateLazy(mid + 1, e, 2 * p + 1);
-    
-    tree[p].isMixed = tree[2*p].isMixed || tree[2*p+1].isMixed || tree[2*p].val != tree[2*p+1].val;
-    tree[p].val = tree[2*p].val+tree[2*p+1].val;
+    updateRange(val, s, mid,2*p);
+    updateRange(val, mid+1, e,2*p+1);
+    tree[p] = tree[p*2] + tree[p*2+1];
 }
 
-long long query(int s = 0, int e = MAX, int p = 1)
+long long queryRange(int s,int e,int p)
 {
-    if (from <= s && to >= e)
-        return tree[p].val;
-    if(!tree[p].isMixed){
-        tree[2*p] = tree[2*p+1] = tree[p];
-        tree[p].isMixed=1;
+    if(s>e||s>to||e<from)
+        return 0;
+    if(lazy[p] != 0)
+    {
+        tree[p] += (e-s+1)*lazy[p];
+        if(s!=e)
+        {
+            lazy[p*2] += lazy[p];
+            lazy[p*2+1] += lazy[p];
+        }
+        lazy[p] = 0;
     }
-    int mid = (s + e) / 2;
-    if (to <= mid)
-        return query(s, (s + e) / 2, 2 * p);
-    if (from > mid)
-        return query((s + e) / 2 + 1, e, 2 * p + 1);
-    return query(s, (s + e) / 2, 2 * p)+query((s + e) / 2 + 1, e, 2 * p + 1);
+    if(s>=from&&e<= to)
+        return tree[p];
+    int mid = (s+ e) / 2;
+    long long p1 = queryRange(s, mid,p*2);
+    long long p2 = queryRange( mid + 1,e,p*2+1);
+    return (p1 + p2);
 }
-
 int main()
 {
     int t,n,q,x,y,k=1;
-    string s;
-    cin>>t;
+    char s[20];
+    scanf("%d",&t);
     while(t--)
     {
-
-        cout<<"Scenario #"<<k++<<":"<<endl;
-        cin>>n>>q;
-        for(int i=0;i<MAX;i++)
-            tree[i]=make_pair(0,0);
+        printf("Scenario #%d:\n");
+        scanf("%d %d",&n,&q);
+        memset(tree,0,sizeof tree);
+        memset(lazy,0,sizeof lazy);
         for(int i=0; i<q; i++)
         {
-            cin>>s;
-            if(s=="answer")
+            scanf("%s",&s);
+            if(s[0]=='a')
             {
-                cin>>from>>to;
-                cout<<query(0,n,1)<<endl;
+                scanf("%d %d",&from,&to);
+                printf("%lld\n",queryRange(0,n,1));
             }
             else
             {
-                cin>>Enter>>Exit;
-                updateLazy(0,n,1);
-                cout<<"OK"<<endl;
+                scanf("%d %d",&from,&to);
+                printf("OK\n");
+                updateRange(1,0,n,1);
             }
         }
     }
