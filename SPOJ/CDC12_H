@@ -57,12 +57,13 @@ long long queryRange(int s,int e,int p)
 }
 int main()
 {
+    //freopen("out.txt","w",stdout);
     int t,n,q,x,y,k=1;
     char s[20];
     scanf("%d",&t);
     while(t--)
     {
-        printf("Scenario #%d:\n");
+        printf("Scenario #%d:\n",k++);
         scanf("%d %d",&n,&q);
         memset(tree,0,sizeof tree);
         memset(lazy,0,sizeof lazy);
