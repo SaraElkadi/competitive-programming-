@@ -15,7 +15,7 @@ void updateRange(int val,int s, int e, int p)
 {
     if(lazy[p])
     {
-        tree[p]+=(e-s+1)*lazy[p];
+        tree[p]+=lazy[p];
         if(s!=e)
         {
             lazy[p*2]+= lazy[p];
@@ -27,7 +27,7 @@ void updateRange(int val,int s, int e, int p)
         return;
     if(s>=from && e<= to)
     {
-        tree[p]+=(e-s+1)*val;
+        tree[p]+=val;
         if(s!=e)
         {
             lazy[p*2]+= val;
@@ -48,7 +48,7 @@ long long queryRange(int s,int e,int p)
         return 1e18;
     if(lazy[p])
     {
-        tree[p] += (e-s+1)*lazy[p];
+        tree[p] += lazy[p];
         if(s!=e)
         {
             lazy[p*2]+= lazy[p];
@@ -66,11 +66,11 @@ long long queryRange(int s,int e,int p)
 int main()
 {
     int n,q,x,y,val;
-    cin>>n;
+    scanf("%d",&n);
     for(int i=1; i<=n; i++)
-        cin>>a[i];
+        scanf("%lld",&a[i]);
     build(1,n,1);
-    cin>>q;
+    scanf("%d",&q);
     string s;
     getline(cin,s);
     for(int i=0; i<q; i++)
@@ -90,15 +90,17 @@ int main()
             if(x<=y)
             {
                 from=x,to=y;
-                cout<<queryRange(1,n,1)<<endl;
+                printf("%lld\n",queryRange(1,n,1));
+              //cout<<queryRange(1,n,1)<<endl;
             }
             else
             {
                 from=x,to=n;
-                int a=queryRange(1,n,1);
+                long long a=queryRange(1,n,1);
                 from=1,to=y;
-                int b=queryRange(1,n,1);
-                cout<<min(a,b)<<endl;
+                long long b=queryRange(1,n,1);
+                printf("%lld\n",min(a,b));
+               // cout<<min(a,b)<<endl;
             }
         }
         else
