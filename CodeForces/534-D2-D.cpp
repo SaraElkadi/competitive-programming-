@@ -6,13 +6,12 @@ int main()
 {
     int n;
     cin>>n;
-    int a[n],b[200005]= {0},d[3]= {0};
+    int a[n],d[3]= {0};
     vector<vector<int> > v(n);
     for(int i=0; i<n; i++)
     {
         cin>>a[i];
         d[a[i]%3]++;
-        b[a[i]]++;
         v[a[i]].push_back(i+1);
     }
 
