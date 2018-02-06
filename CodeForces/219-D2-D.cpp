@@ -2,7 +2,7 @@
 
 using namespace std;
 vector<vector<pair<int,bool>> > adj(200005);
-int a[200005],b[200005],c[200005];
+int c[200005];
 bool vis[200005];
 int dfs(int n)
 {
@@ -11,17 +11,12 @@ int dfs(int n)
     {
         if(!vis[adj[n][i].first])
         {
-            if(adj[n][i].second==0)
-                a[adj[n][i].first]+=a[n]+1;
-            else
-                a[adj[n][i].first]+=a[n];
-
             dfs(adj[n][i].first);
-            
+
             if(adj[n][i].second==1)
-                b[n]+=b[adj[n][i].first]+1;
+                c[n]+=c[adj[n][i].first]+1;
             else
-                b[n]+=b[adj[n][i].first];
+                c[n]+=c[adj[n][i].first];
         }
     }
 }
@@ -54,7 +49,6 @@ int main()
         adj[y].push_back(make_pair(x,1));
     }
     dfs(0);
-    c[0]=b[0]+a[0];
     memset(vis,0,sizeof vis);
     dfs1(0);
     int mn=1000000000;
