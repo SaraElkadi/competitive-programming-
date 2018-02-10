@@ -1,3 +1,10 @@
+/* The idea behaind this problem is how to get the median 
+   you need the date to be stored and get the element at the middle 
+   To make this ,use two priority_queue to store the values of F:
+   first queue store the first half of sorted elements with greatest element at top 
+   second queue store the second half of sorted elements with smallest element at top
+   and the median will be always at the top of the first queue . */
+
 #include <bits/stdc++.h>
 
 using namespace std;
