@@ -4,7 +4,6 @@ using namespace std;
 int mx=-1,n,m,t,u,v,w;
 vector<vector<pair<int,int> > >par(5005,vector<pair<int,int> >(5005,make_pair(-1,0)));
 vector<vector<pair<int,int> > > adj(5005);
-vector<int> vec(5005);
 void bfs(int s)
 {
     queue<int> q;
@@ -40,11 +39,12 @@ int main()
     }
     bfs(1);
     cout<<mx+1<<endl;
-    v=n;w=1;
-    vec[0]=v;
+    v=n;
+    vector<int>vec;
+    vec.push_back(v);
     for(int i=mx-1; i>=0; i--)
     {
-        vec[w++]=par[i][v].first;
+        vec.push_back(par[i][v].first);
         v=par[i][v].first;
     }
     for(int i=mx; i>=0; i--)
