@@ -4,6 +4,7 @@ using namespace std;
 int mx=-1,n,m,t,u,v,w;
 vector<vector<pair<int,int> > >par(5005,vector<pair<int,int> >(5005,make_pair(-1,0)));
 vector<vector<pair<int,int> > > adj(5005);
+bool vis[5005][5005];
 void bfs(int s)
 {
     queue<int> q;
@@ -15,6 +16,9 @@ void bfs(int s)
         while(sz--)
         {
             cur=q.front(),q.pop();
+            if(vis[dep][cur])continue;
+             if(dep && par[dep-1][cur].second > t)continue;
+            vis[dep][cur]=1;
             if(cur==n&&dep>mx&&par[dep-1][cur].second<=t)
             {
                 mx=dep;
@@ -23,8 +27,8 @@ void bfs(int s)
             {
                 q.push(adj[cur][i].first);
                 if( par[dep][adj[cur][i].first].first==-1||
-                        par[dep][adj[cur][i].first].second>(dep>0?par[dep-1][cur].second:0)+adj[cur][i].second);
-                par[dep][adj[cur][i].first]=make_pair(cur,(dep>0?par[dep-1][cur].second:0)+adj[cur][i].second);
+                        par[dep][adj[cur][i].first].second>(dep>0?par[dep-1][cur].second:0)+adj[cur][i].second)
+                    par[dep][adj[cur][i].first]=make_pair(cur,(dep>0?par[dep-1][cur].second:0)+adj[cur][i].second);
             }
         }
     }
