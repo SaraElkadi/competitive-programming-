@@ -1,3 +1,9 @@
+/* apply binary search algorithm to find the maximum quality 
+   at each value of quality , calculate the mimimum money need to get the quality and depened on that change the high 
+   or the low side of the range with the mid value.
+   */
+
+
 #include <bits/stdc++.h>
 
 using namespace std;
