@@ -1,3 +1,10 @@
+ /* solved by bfs 
+    use array to save the number of mirrors at each cell and initalize it by Max_Value
+    from any cell, try to go to all possible cells by using one mirror if this minimize the number of mirrors to go from source node to this cell
+    after finish bfs , the array store(the minimum number of mirriors to go from source cell to this cell - 1) 
+    as at source node we don't need any mirror to go to other adjcant cell*/
+
+
 #include <bits/stdc++.h>
 
 using namespace std;
