@@ -31,27 +31,17 @@ int main()
         bool f[505][505]= {0};
         while(ss1>>s) v1.push_back(s);
         while(ss2>>s) v2.push_back(s);
-        for(int i=0; i<v1.size(); i++)
+        for(int i=1; i<=v1.size(); i++)
         {
-            for(int j=0; j<v2.size(); j++)
+            for(int j=1; j<=v2.size(); j++)
             {
-                if(v1[i]==v2[j])
-                    f[i][j]=1;
+                if(v1[i-1]==v2[j-1])
+                    a[i][j]=1+a[i-1][j-1];
                 else
-                    f[i][j]=0;
+                    a[i][j]=max(a[i-1][j],a[i][j-1]);
             }
         }
-        for(int i=v1.size()-1; i>=0; i--)
-        {
-            for(int j=v2.size()-1; j>=0; j--)
-            {
-                if(f[i][j])
-                    a[i][j]=1+a[i+1][j+1];
-                else
-                    a[i][j]=max(a[i+1][j],a[i][j+1]);
-            }
-        }
-        cout<<"Length of longest match: "<<a[0][0]<<endl;
+        cout<<"Length of longest match: "<<a[v1.size()][v2.size()]<<endl;
     }
     return 0;
 }
