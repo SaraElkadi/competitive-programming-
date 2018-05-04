@@ -1,3 +1,7 @@
+/*apply dijikstra on each node that have hotel at and store the edge between the two nodes
+if the shortest path between the nodes less than 600 at a new adjlist array 
+and then apply bfs on the new adjlist array to get the shortest path with minimum booking hotels. */
+
 #include <bits/stdc++.h>
 
 using namespace std;
