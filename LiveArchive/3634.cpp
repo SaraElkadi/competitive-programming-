@@ -1,3 +1,8 @@
+ /*Represent each string as a set of numbers refer to sets that consist this string and use two maps
+   to represent each set as a number , for push , push a number that refer to empty set in the stack ,
+   for intersect and union ,use set functions to do that ,
+   for add ,get the number that refer to the set at the top of the stack and add it to the set of the second element .*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
