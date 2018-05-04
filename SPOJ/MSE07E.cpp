@@ -1,3 +1,5 @@
+/* XOR all numbers and result will be the number that occured odd numbers of times */
+
 #include <bits/stdc++.h>
 
 using namespace std;
