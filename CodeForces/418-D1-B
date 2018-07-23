@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+const int MAX=105;
+const long long oo=2e18;
+long long x[MAX],k[MAX],s[MAX];
+
+int main()
+{
+    long long n,m,q,a,b;
+    cin>>n>>m>>b;
+    for(int i=0; i<n; i++)
+    {
+        cin>>x[i]>>k[i]>>q;
+        while(q--)
+        {
+            cin>>a;
+            s[i]|=(1<<(a-1));
+        }
+    }
+    for(int i=0; i<n; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            if(k[j]<k[i])
+            {
+                swap(k[i],k[j]);
+                swap(x[i],x[j]);
+                swap(s[i],s[j]);
+            }
+        }
+    }
+    long long f[(1<<m)];
+    long long ans=oo;
+    for(int i=0; i<(1<<m); i++)
+        f[i]=oo;
+    f[0]=0;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<(1<<m); j++)
+        {
+            if(f[j]+x[i]<f[j|s[i]])
+                f[j|s[i]]=f[j]+x[i];
+        }
+        long long w=f[(1<<m)-1];
+        w+=k[i]*b;
+        ans=min(ans,w);
+    }
+    if(ans>=oo)
+        cout<<-1<<endl;
+    else
+        cout<<ans<<endl;
+    return 0;
+}
