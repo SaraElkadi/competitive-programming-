@@ -1,3 +1,14 @@
+
+/*
+   First ,Get the potency of reach corner .
+   To get all neighbouring corners , flip one of the bits of index and the result would be one the indexes of neighbouring corners.
+   Fliping can be done easily by XOR the bit you want to flip with one.
+   After that get the sum of potency for each two neighbouring corners and the answer would the max value .
+   To know if this two corners are neighbouring or not , the indexes of them should have exactly one bit different . 
+   To check this , XOR the indexes and check if the answer is equal to 2^i or not .
+   */
+
+
 #include <bits/stdc++.h>
 
 using namespace std;
