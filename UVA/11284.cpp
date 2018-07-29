@@ -1,10 +1,13 @@
 
 /*
   To solve this problem
-  First, need to know the the cheapest cost to drive between every two stores and between stores and home, you can do this by floyd algorithm.
-  After that , use this to build another array that store the cheapest cost between stores-that have operas only- and home (you can represent home as the first store).
+  First, need to know the the cheapest cost to drive between every two stores and between stores and home, 
+  you can do this by floyd algorithm.
+  After that , use this to build another array that store the cheapest cost between stores-that have operas only- and home
+  (you can represent home as the first store).
   After get that , you can now try all possible ways to get operas by dp function and find the max.
-  The parameters for dp function is the index of store , and indicator for stores visited ( To know what stores you visited ,you can use int variable and apply bitwise operation)
+  The parameters for dp function is the index of store , and indicator for stores visited
+  ( To know what stores you visited ,you can use int variable and apply bitwise operation).
   From every store, try to go to all stores that you didn't visit yet and calculate the saved money.
   */
 #include <bits/stdc++.h>
