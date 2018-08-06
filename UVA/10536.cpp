@@ -1,3 +1,10 @@
+/* 
+  solution depend on simple recurision function which return true if there is any case that makes the first player wins(winning position)
+  The first player could win if it is his turn and can't make a move (this means that the second payer makes the last move and lose )
+  OR if any of possible moves for the first player make the second player not winning (lose)
+  otherwise the first player will lose.
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
