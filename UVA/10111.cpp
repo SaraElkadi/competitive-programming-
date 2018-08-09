@@ -1,3 +1,9 @@
+/*
+ try all possible moves for the first move after the given game and check if the second player would definitely lose or not.
+ if he definitely lose then the first player would have forced win.
+ To check winning case, I used dp function with indicate two parameters, the first is vector of strings which store the case of the board now,
+ the second is bool variable which indicate which player should play now. 
+*/
 #include <bits/stdc++.h>
 
 using namespace std;
