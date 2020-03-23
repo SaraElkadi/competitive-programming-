@@ -4,12 +4,13 @@ using namespace std;
 
 int main()
 {
-    int s,m;
-    while(cin>>s>>m){
-        if(__gcd(s,m)==1)
-            cout<<setw(10)<<s<<setw(10)<<m<<"    "<<"Good Choice\n\n";
+    int step,mod;
+    while(cin>>step>>mod)
+    {
+        if(__gcd(step,mod)==1)
+            cout<<setw(10)<<step<<setw(10)<<mod<<string(4,' ')<<"Good Choice"<<endl<<endl;
         else
-            cout<<setw(10)<<s<<setw(10)<<m<<"    "<<"Bad Choice\n\n";
+            cout<<setw(10)<<step<<setw(10)<<mod<<string(4,' ')<<"Bad Choice"<<endl<<endl;
     }
     return 0;
 }
